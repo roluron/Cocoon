@@ -1,6 +1,40 @@
-import * as Icons from 'lucide-react';
+import {
+  Activity,
+  BookOpen,
+  Circle,
+  Coffee,
+  Compass,
+  Droplet,
+  Feather,
+  Heart,
+  Moon,
+  MoonStar,
+  Snowflake,
+  Sun,
+  Sunrise,
+  Waves,
+  Wind,
+} from 'lucide-react';
 import { useApp } from '../../context/AppContext.jsx';
 import { useTheme } from '../../context/ThemeContext.jsx';
+
+const ICONS = {
+  Activity,
+  BookOpen,
+  Circle,
+  Coffee,
+  Compass,
+  Droplet,
+  Feather,
+  Heart,
+  Moon,
+  MoonStar,
+  Snowflake,
+  Sun,
+  Sunrise,
+  Waves,
+  Wind,
+};
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -20,7 +54,7 @@ export default function TodayRituals() {
       <h3 className="font-body text-sm font-semibold tracking-wide text-cocoon-pearl">Today</h3>
       <div className="mt-3 -mx-5 flex gap-3 overflow-x-auto px-5 pb-2">
         {rituals.slice(0, 8).map((r) => {
-          const Icon = Icons[r.icon] ?? Icons.Circle;
+          const Icon = ICONS[r.icon] ?? Circle;
           const done = isDone(r.id);
           return (
             <button

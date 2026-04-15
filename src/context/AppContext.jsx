@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useReducer, useRef } from 'react';
 import { storage } from '../utils/storage.js';
+import { applyPhaseAdvance, evaluateNextPhase } from '../utils/phaseTransition.js';
 
 const STORAGE_KEY = 'state';
 
@@ -85,6 +86,13 @@ function reducer(state, action) {
     case 'SET_RITUALS':
       return { ...state, rituals: action.payload };
 
+    case 'ADVANCE_PHASE':
+      if (!state.cycle) return state;
+      return { ...state, cycle: applyPhaseAdvance(state.cycle, action.payload) };
+
+    case 'SEED':
+      return { ...state, ...action.payload };
+
     case 'RESET_PRESENCE_DAY':
       return {
         ...state,
@@ -159,6 +167,27 @@ export function AppProvider({ children }) {
     const { hydrated, ...persisted } = state;
     storage.set(STORAGE_KEY, persisted);
   }, [state]);
+
+  useEffect(() => {
+    if (!state.hydrated || !state.cycle) return;
+    const next = evaluateNextPhase({
+      cycle: state.cycle,
+      moods: state.moods,
+      journal: state.journal,
+      rituals: state.rituals,
+      ritualCompletions: state.ritualCompletions,
+    });
+    if (next && next !== state.cycle.phase) {
+      dispatch({ type: 'ADVANCE_PHASE', payload: next });
+    }
+  }, [
+    state.hydrated,
+    state.cycle,
+    state.moods,
+    state.journal,
+    state.rituals,
+    state.ritualCompletions,
+  ]);
 
   const value = useMemo(() => ({ state, dispatch }), [state]);
 

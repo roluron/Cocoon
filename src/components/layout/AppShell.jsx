@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import BottomNav from './BottomNav.jsx';
 import HomeScreen from '../home/HomeScreen.jsx';
 import JournalScreen from '../journal/JournalScreen.jsx';
-import RitualsScreen from '../rituals/RitualsScreen.jsx';
-import SoundscapeScreen from '../soundscape/SoundscapeScreen.jsx';
 import PresenceNudge from '../shared/PresenceNudge.jsx';
+
+const RitualsScreen = lazy(() => import('../rituals/RitualsScreen.jsx'));
+const SoundscapeScreen = lazy(() => import('../soundscape/SoundscapeScreen.jsx'));
 
 const SCREENS = {
   home: HomeScreen,
@@ -37,7 +38,9 @@ export default function AppShell({ initialTab = 'home' }) {
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0 overflow-y-auto"
           >
-            <ScreenComponent onGoToJournal={goToJournal} journalIntent={journalIntent} />
+            <Suspense fallback={null}>
+              <ScreenComponent onGoToJournal={goToJournal} journalIntent={journalIntent} />
+            </Suspense>
           </motion.div>
         </AnimatePresence>
         <PresenceNudge />
