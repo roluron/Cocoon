@@ -104,3 +104,27 @@ textarea {
   background: color-mix(in oklab, var(--cocoon-glow) 40%, transparent);
   color: var(--cocoon-light);
 }
+
+@keyframes cocoon-breathe {
+  0%,
+  100% {
+    transform: scale(0.95);
+    opacity: 0.62;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.92;
+  }
+}
+
+@keyframes cocoon-breath {
+  0%,
+  100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+}

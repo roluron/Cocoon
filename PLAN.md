@@ -117,7 +117,7 @@ Build:          Vite
 > If this doesn't feel magical, nothing else matters.
 
 1. App shell with bottom navigation (4 tabs)
-2. Onboarding flow (7 screens)
+2. Onboarding flow (8 screens, including intention capture)
 3. Home screen with mood check-in (3-stage flow: mood → breathe → journal invite)
 4. Mood state management + color theming
 5. Basic journal (quick pulse + guided reflection + free write)
@@ -127,37 +127,37 @@ Build:          Vite
 9. Presence Guardian (anti-addiction session awareness)
 
 ### PHASE 2: The Rhythm
-7. Ritual engine (morning/evening routines)
-8. Ritual builder in onboarding
-9. Notification scheduling logic
-10. Habit completion tracking
-11. Streak and consistency calculation
+10. Ritual engine (morning/evening routines)
+11. Ritual builder in onboarding
+12. Notification scheduling logic
+13. Habit completion tracking
+14. Streak and consistency calculation
 
 ### PHASE 3: The Voice
-12. Generative audio engine (Tone.js)
-13. Five audio modes (Wake, Focus, Create, Move, Rest)
-14. Mood-reactive audio parameters
-15. Audio player UI (minimal, ambient)
+15. Generative audio engine (Tone.js)
+16. Five audio modes (Wake, Focus, Create, Move, Rest)
+17. Mood-reactive audio parameters
+18. Audio player UI (minimal, ambient)
 
 ### PHASE 4: The Mirror
-16. Weekly summary screen
-17. Mood wave visualization
-18. Cocoon progression animation (simple CSS, not 3D)
-19. Metamorphosis phases (Dormancy → Emergence)
-20. Cycle history / butterfly collection
+19. Weekly summary screen
+20. Mood wave visualization
+21. Cocoon progression animation (simple CSS, not 3D)
+22. Metamorphosis phases (Dormancy → Emergence)
+23. Cycle history / butterfly collection
 
 ### PHASE 5: The Glow (Final Polish)
-21. Orb visualization on home screen (CSS/SVG, animated gradients)
-22. Ambient background animations (subtle, GPU-friendly)
-23. Screen transitions and micro-interactions
-24. Haptic feedback patterns (if native wrapper)
-25. Vivarium (social layer, future)
+24. Orb visualization on home screen (CSS/SVG, animated gradients)
+25. Ambient background animations (subtle, GPU-friendly)
+26. Screen transitions and micro-interactions
+27. Haptic feedback patterns (if native wrapper)
+28. Vivarium (social layer, future)
 
 ---
 
 ## 4. SCREEN-BY-SCREEN SPECIFICATION
 
-### 4.1 ONBOARDING (7 Screens)
+### 4.1 ONBOARDING (8 Screens)
 
 **Design**: Full-screen, dark background. One question per screen. Large typography. Answers are tappable cards, not form inputs. Transition between screens: slow crossfade (600ms) with slight upward drift.
 
@@ -227,6 +227,29 @@ Build:          Vite
 - Show the generated ritual as a scrollable list of gentle steps
 - "This feels right" / "Adjust later" buttons
 
+**Screen 8: "Your Intention" (Cycle Purpose)**
+- This is the moment the user names what this cycle is about. This text becomes the label on their butterfly if they reach éclosion.
+- Visual: The breathing gradient continues in the background. This screen feels like a whisper, not a form.
+- Title: "What is this cycle about for you?" (Cormorant Garamond, 24px, --cocoon-light)
+- Subtitle: "In one sentence. There's no wrong answer." (Outfit, 14px, --cocoon-ash)
+- Single text input, large font (Cormorant Garamond, 22px), center-aligned, --cocoon-deep background
+- Placeholder text (--cocoon-mist): "I want to..."
+- Examples that fade in and out below the input (cycling every 3s, Outfit, 13px, --cocoon-ash):
+  - "...build a morning practice"
+  - "...sit with my grief"
+  - "...find creative flow"
+  - "...understand myself better"
+  - "...stop running from what I feel"
+- The examples disappear as soon as the user starts typing
+- "Begin your cycle" button appears when input has 5+ characters
+- Character limit: 100 characters. This is a sentence, not an essay.
+- On submit: the screen fades to the home screen. The cycle officially starts. Day 1 begins.
+- **Critical**: This intention is stored in `Cycle.intention` and is used for:
+  1. The guided reflection on Day 15: "Read your first journal entry..."
+  2. The éclosion question: "Do you feel something has changed?"
+  3. The butterfly label in the Vivarium: "Found creative flow"
+  4. The weekly summary context
+
 ### 4.2 HOME SCREEN
 
 **Layout (top to bottom):**
@@ -275,7 +298,12 @@ This is the emotional core of the app. It is NOT a modal that pops up and closes
   - No instructions. No "breathe in / breathe out" text. Just the circle moving.
   - The user naturally syncs their breathing. This is felt, not taught.
 - The mood word sits quietly below the circle (Cormorant Garamond, 18px, low opacity)
-- This stage lasts a minimum of 2-3 breath cycles (~16-24 seconds)
+- **Adaptive timing**: The breathing space duration shortens as the user builds familiarity:
+  - Days 1-7 of cycle: minimum 3 breath cycles (~24 seconds) before Stage 3 appears
+  - Days 8-14: minimum 2 breath cycles (~16 seconds)
+  - Days 15+: minimum 1 breath cycle (~8 seconds)
+  - The user can always stay longer. The breathing circle never stops. Only the minimum wait before the "Feel like writing?" prompt shrinks.
+  - Rationale: The first week, the pause is transformative. By week three, the user has internalized the rhythm. Trust them.
 - Then Stage 3 fades in gently
 
 **Stage 3: The Invitation**
@@ -288,6 +316,17 @@ This is the emotional core of the app. It is NOT a modal that pops up and closes
 - "Not today" is a complete, valid, respected answer.
 
 **Important**: The breathing space is the secret weapon of this app. It creates a decompression chamber between naming a feeling and deciding what to do about it. Most apps rush past this. Cocoon sits with you.
+
+**Resting State (Post-Éclosion, No Active Cycle)**
+
+When a user taps "I'm good for now" after éclosion, or when they haven't started a new cycle yet, the home screen enters a quiet resting state:
+
+- **Cocoon State Card**: The gradient circle is replaced by the user's butterfly, rendered in their cycle's dominant color. Static, not animated. Calm. Below it: "Resting" in JetBrains Mono, 12px, --cocoon-ash.
+- **Mood check-in**: Still available. The "How are you now?" tap target remains. Mood data continues to be collected (it's valuable for the next cycle's baseline). The full 3-stage check-in flow still works, including the breathing space and journal invitation.
+- **Today's Rituals**: Hidden. No rituals are active during resting state. The horizontal scroll section disappears entirely.
+- **Journal**: Still accessible via the tab. Quick pulse and free write are available. Guided reflections stop (no active prompt arc without a cycle). Resurfacing can still trigger if mood conditions are met.
+- **Wisdom Fragment**: Can still appear on home screen, but selection draws from "acceptance" and "peace" themed quotes only.
+- **Gentle re-entry**: After 7+ days in resting state, a subtle message appears below the butterfly: "Whenever you're ready." Tapping it opens a screen: "What is this next cycle about for you?" (intention capture) and begins a new cycle. This appears once, then disappears if dismissed. No repetition. No urgency.
 
 ### 4.3 JOURNAL SCREEN (Tab 2)
 
@@ -876,23 +915,8 @@ Card design:
 - The card is dismissable. No forced engagement.
 - Maximum one resurfacing per week. Rarity makes it powerful.
 
-### Data Model Addition
-```typescript
-interface JournalEntry {
-  id: string;
-  date: string;
-  quickPulse?: string;
-  guidedReflection?: {
-    prompt: string;
-    response: string;
-  };
-  freeWrite?: string;
-  sentimentScore?: number; // -1 to 1
-  moodAtTime: string; // mood when entry was written
-  isResurfaceable: boolean; // true if moodAtTime valence > 0.3
-  lastResurfacedAt?: string; // ISO date, null if never resurfaced
-}
-```
+### Data Model
+> **See Section 5.4 for the canonical JournalEntry interface.** The resurfacing-specific fields are: `moodAtTime`, `isResurfaceable`, and `lastResurfacedAt`. Do not duplicate this interface elsewhere.
 
 ### Selection Algorithm
 ```javascript
@@ -1037,7 +1061,8 @@ If the user taps "I'm good for now," the app returns to a quiet home screen with
 ```
 - 4 seconds expand (0% → 50%), 4 seconds contract (50% → 100%)
 - No labels. No "inhale/exhale" text. The circle IS the breath.
-- After 2-3 full cycles, the "Feel like writing today?" text fades in below (opacity 0 → 1, 1.5s ease)
+- **Adaptive wait before "Feel like writing?"**: Days 1-7: 3 cycles (~24s). Days 8-14: 2 cycles (~16s). Days 15+: 1 cycle (~8s). Compute from `dayInCycle`. The circle never stops; only the prompt timing shortens.
+- "Feel like writing today?" text fades in below (opacity 0 → 1, 1.5s ease)
 
 ### Home Screen Gradient (The Proto-Orb)
 ```css
@@ -1200,12 +1225,13 @@ cocoon/
 │   │   │   └── ScreenTransition.jsx # AnimatePresence wrapper
 │   │   │
 │   │   ├── onboarding/
-│   │   │   ├── OnboardingFlow.jsx  # Orchestrates 7 onboarding screens
+│   │   │   ├── OnboardingFlow.jsx  # Orchestrates 8 onboarding screens
 │   │   │   ├── WelcomeScreen.jsx
 │   │   │   ├── QuestionScreen.jsx  # Reusable single/multi-select question
 │   │   │   ├── MoodSelectScreen.jsx # First mood capture
 │   │   │   ├── TwentyOneDaysScreen.jsx # The neuroscience story moment
-│   │   │   └── RitualSetupScreen.jsx
+│   │   │   ├── RitualSetupScreen.jsx
+│   │   │   └── IntentionScreen.jsx  # "What is this cycle about for you?"
 │   │   │
 │   │   ├── home/
 │   │   │   ├── HomeScreen.jsx
@@ -1307,11 +1333,14 @@ When building this app, follow this exact sequence:
 - AnimatePresence for screen transitions
 
 ### Step 4: Onboarding
-- Build all 7 onboarding screens following the spec exactly
+- Build all 8 onboarding screens following the spec exactly
 - The "21 Days" screen (Screen 6) must have staggered text reveal with proper timing
+- The "Intention" screen (Screen 8) captures the user's cycle purpose in one sentence (stored in Cycle.intention)
+- Intention input has cycling placeholder examples that disappear on focus
 - Store responses in AppContext
 - Generate initial ritual list based on morning time/caffeine/sunlight answers
 - Set initial mood and color theme
+- On final screen submit: create the Cycle object with intention, set startDate to now, phase to 'dormancy'
 - Persist onboarding completion flag
 
 ### Step 5: Home Screen
@@ -1319,12 +1348,14 @@ When building this app, follow this exact sequence:
 - The CocoonStateCard should start as a simple CSS gradient circle (the proto-orb)
 - Build the 3-stage MoodCheckinFlow: mood selection → breathing space → journal invitation
 - The BreathingCircle must use pure CSS (scale animation, 4s in / 4s out, ease-in-out)
-- The "Feel like writing today?" appears after 2-3 breath cycles (~16-24s) with a gentle fade
+- **Adaptive breathing timing**: Days 1-7 wait 3 cycles (~24s), days 8-14 wait 2 cycles (~16s), days 15+ wait 1 cycle (~8s)
+- The "Feel like writing today?" appears after the adaptive wait with a gentle fade
 - "Not today" is respected with zero guilt messaging
 - Wire up WisdomFragment with contextual display rules
 - Build Presence Guardian: session timer starts on app open, nudge messages appear at 10min/15min thresholds
 - Nudges are ambient text within the existing layout, NEVER modals or pop-ups
 - After 3rd daily check-in, soften the check-in button with "Trust what you felt" message
+- **Build resting state**: When no active cycle exists (post-éclosion "I'm good for now"), show butterfly instead of gradient, hide rituals section, keep mood check-in and journal available, show "Whenever you're ready" gentle re-entry after 7+ days
 
 ### Step 6: Journal
 - Build all journal components
