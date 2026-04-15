@@ -1,0 +1,122 @@
+[
+  {
+    "id": "jung-unconscious",
+    "text": "Until you make the unconscious conscious, it will direct your life and you will call it fate.",
+    "author": "Carl Jung",
+    "tradition": "jungian",
+    "themes": ["self", "awareness", "change"],
+    "intensity": "profound",
+    "bestForPhases": ["unraveling", "reforming"],
+    "bestForMoods": ["restless", "heavy"]
+  },
+  {
+    "id": "watts-dance",
+    "text": "The only way to make sense out of change is to plunge into it, move with it, and join the dance.",
+    "author": "Alan Watts",
+    "tradition": "eastern",
+    "themes": ["change", "acceptance", "flow"],
+    "intensity": "medium",
+    "bestForPhases": ["stirring", "unraveling"],
+    "bestForMoods": ["restless", "melancholy"]
+  },
+  {
+    "id": "jung-roots",
+    "text": "No tree can grow to heaven unless its roots reach down to hell.",
+    "author": "Carl Jung",
+    "tradition": "jungian",
+    "themes": ["growth", "shadow", "depth"],
+    "intensity": "profound",
+    "bestForPhases": ["unraveling"],
+    "bestForMoods": ["heavy", "melancholy"]
+  },
+  {
+    "id": "aurelius-impediment",
+    "text": "The impediment to action advances action. What stands in the way becomes the way.",
+    "author": "Marcus Aurelius",
+    "tradition": "stoic",
+    "themes": ["courage", "obstacle", "growth"],
+    "intensity": "medium",
+    "bestForPhases": ["reforming"],
+    "bestForMoods": ["restless", "heavy"]
+  },
+  {
+    "id": "chodron-sky",
+    "text": "You are the sky. Everything else is just the weather.",
+    "author": "Pema Chödrön",
+    "tradition": "eastern",
+    "themes": ["self", "impermanence", "peace"],
+    "intensity": "gentle",
+    "bestForPhases": ["stirring", "reforming"],
+    "bestForMoods": ["serene", "peaceful"]
+  },
+  {
+    "id": "watts-muddy",
+    "text": "Muddy water is best cleared by leaving it alone.",
+    "author": "Alan Watts",
+    "tradition": "eastern",
+    "themes": ["patience", "stillness", "acceptance"],
+    "intensity": "gentle",
+    "bestForPhases": ["dormancy", "stirring"],
+    "bestForMoods": ["restless", "heavy"]
+  },
+  {
+    "id": "nietzsche-why",
+    "text": "He who has a why to live can bear almost any how.",
+    "author": "Friedrich Nietzsche",
+    "tradition": "existential",
+    "themes": ["purpose", "suffering", "courage"],
+    "intensity": "profound",
+    "bestForPhases": ["unraveling", "reforming"],
+    "bestForMoods": ["heavy", "melancholy"]
+  },
+  {
+    "id": "rumi-wound",
+    "text": "The wound is the place where the light enters you.",
+    "author": "Rumi",
+    "tradition": "eastern",
+    "themes": ["suffering", "growth", "healing"],
+    "intensity": "profound",
+    "bestForPhases": ["unraveling"],
+    "bestForMoods": ["heavy", "melancholy", "restless"]
+  },
+  {
+    "id": "aristotle-habit",
+    "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+    "author": "Aristotle",
+    "tradition": "stoic",
+    "themes": ["discipline", "habit", "growth"],
+    "intensity": "medium",
+    "bestForPhases": ["stirring", "reforming"],
+    "bestForMoods": ["energized", "creative"]
+  },
+  {
+    "id": "einstein-difficulty",
+    "text": "In the middle of difficulty lies opportunity.",
+    "author": "Albert Einstein",
+    "tradition": "scientific",
+    "themes": ["obstacle", "change", "perspective"],
+    "intensity": "gentle",
+    "bestForPhases": ["unraveling"],
+    "bestForMoods": ["restless", "heavy"]
+  },
+  {
+    "id": "jung-meet-yourself",
+    "text": "Your vision will become clear only when you can look into your own heart.",
+    "author": "Carl Jung",
+    "tradition": "jungian",
+    "themes": ["self", "awareness", "stillness"],
+    "intensity": "medium",
+    "bestForPhases": ["dormancy", "stirring"],
+    "bestForMoods": ["melancholy", "peaceful"]
+  },
+  {
+    "id": "lao-tzu-stillness",
+    "text": "Nature does not hurry, yet everything is accomplished.",
+    "author": "Lao Tzu",
+    "tradition": "eastern",
+    "themes": ["patience", "stillness", "trust"],
+    "intensity": "gentle",
+    "bestForPhases": ["dormancy", "reforming"],
+    "bestForMoods": ["restless", "heavy", "serene"]
+  }
+]

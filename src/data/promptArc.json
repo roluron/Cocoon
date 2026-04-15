@@ -1,0 +1,69 @@
+{
+  "phases": {
+    "entry": {
+      "days": [1, 2, 3, 4],
+      "cocoonPhase": "dormancy",
+      "tone": "Warm, grounding, low-pressure. The user just arrived. Don't push.",
+      "prompts": [
+        "What does your body feel like right now? Not your mind. Your body.",
+        "If today had a color, what would it be?",
+        "What's one small thing you did for yourself today?",
+        "What sound would describe your week so far?"
+      ]
+    },
+    "sensory": {
+      "days": [5, 6, 7, 8, 9],
+      "cocoonPhase": "stirring",
+      "tone": "Go deeper. Invite vulnerability. Start connecting feelings to patterns.",
+      "prompts": [
+        "What's something you've been avoiding thinking about?",
+        "When was the last time you felt fully present? What were you doing?",
+        "What would you say to yourself from five years ago?",
+        "What emotion do you feel most often but rarely name out loud?",
+        "Describe a moment this week that surprised you, even slightly."
+      ]
+    },
+    "agency": {
+      "days": [10, 11, 12, 13, 14],
+      "cocoonPhase": "unraveling",
+      "tone": "Shadow territory. Honest confrontation. Most people want to quit here. The prompts acknowledge that.",
+      "prompts": [
+        "What story do you keep telling yourself that might not be true?",
+        "What are you holding onto that no longer serves you?",
+        "If you could change one pattern in your life tomorrow, what would it be?",
+        "This is the hard part. Most people stop here. Why are you still here?",
+        "What would your life look like if you weren't afraid?"
+      ]
+    },
+    "reflection": {
+      "days": [15, 16, 17, 18],
+      "cocoonPhase": "reforming",
+      "tone": "Meaning-making. Connecting dots. The user starts seeing their own arc.",
+      "prompts": [
+        "Read your first journal entry. What do you notice about that person?",
+        "What has shifted since you started? It can be small.",
+        "Who in your life would notice the change you're making?",
+        "What would you tell someone just starting this journey?"
+      ]
+    },
+    "proof": {
+      "days": [19, 20, 21],
+      "cocoonPhase": "emergence",
+      "tone": "The user claims their transformation. Agency. Choice. Self-authorship.",
+      "prompts": [
+        "Write one sentence about who you are becoming.",
+        "What will you carry forward from these {days} days?",
+        "You've been here {days} days. You chose this every single time. What does that tell you about yourself?"
+      ]
+    }
+  },
+  "patternOverrides": {
+    "sameMood4Days": "You've been feeling {mood} for several days. What does this state need from you?",
+    "shiftedHeavyToLight": "Something shifted. Can you name what changed?",
+    "highRitualLowMood": "You're showing up for your rituals even when it's hard. What keeps you going?",
+    "lowRitualGoodMood": "You've been feeling good without your rituals. What's carrying you?",
+    "newPhase": "You've entered {phase}. What does this feel like?",
+    "weekStreak": "A week of consistency. What's different about this time?",
+    "noJournal3Days": "It's been a few days since you wrote. Is there something waiting to be said?"
+  }
+}

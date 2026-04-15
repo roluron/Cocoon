@@ -1,0 +1,10 @@
+[
+  { "id": "serene", "label": "Serene", "color": "#4a7c8a", "valence": 0.7 },
+  { "id": "melancholy", "label": "Melancholy", "color": "#3d3d6b", "valence": -0.4 },
+  { "id": "restless", "label": "Restless", "color": "#8a6a3d", "valence": -0.2 },
+  { "id": "energized", "label": "Energized", "color": "#6b8a4a", "valence": 0.4 },
+  { "id": "heavy", "label": "Heavy", "color": "#4a3d5c", "valence": -0.6 },
+  { "id": "light", "label": "Light", "color": "#8a8a6b", "valence": 0.6 },
+  { "id": "creative", "label": "Creative", "color": "#6b4a7c", "valence": 0.5 },
+  { "id": "peaceful", "label": "Peaceful", "color": "#3d6b6b", "valence": 0.8 }
+]

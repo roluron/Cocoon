@@ -1,0 +1,20 @@
+{
+  "morning": [
+    { "id": "hydrate", "title": "Hydrate", "description": "Glass of water with a pinch of salt.", "icon": "Droplet", "suggestedTime": "06:30" },
+    { "id": "sunlight", "title": "Sunlight", "description": "10 minutes of outdoor light exposure.", "icon": "Sun", "suggestedTime": "06:45" },
+    { "id": "breathwork", "title": "Breathwork", "description": "2 minutes of box breathing or cyclic sighing.", "icon": "Wind", "suggestedTime": "07:00" },
+    { "id": "movement", "title": "Movement", "description": "10–30 minutes, any form.", "icon": "Activity", "suggestedTime": "07:15" },
+    { "id": "morning-journal", "title": "Journal", "description": "A short morning reflection.", "icon": "Feather", "suggestedTime": "07:45" },
+    { "id": "delay-caffeine", "title": "Delay caffeine", "description": "Wait 90 minutes after waking.", "icon": "Coffee", "suggestedTime": "08:30" },
+    { "id": "cold-exposure", "title": "Cold exposure", "description": "Cold shower, 1–3 minutes.", "icon": "Snowflake", "suggestedTime": "07:30" },
+    { "id": "intention", "title": "Intention", "description": "Set one intention for the day.", "icon": "Compass", "suggestedTime": "08:00" }
+  ],
+  "evening": [
+    { "id": "screen-sunset", "title": "Screen sunset", "description": "No screens 1 hour before bed.", "icon": "MoonStar", "suggestedTime": "21:00" },
+    { "id": "reflect", "title": "Reflect", "description": "What went well today.", "icon": "BookOpen", "suggestedTime": "21:15" },
+    { "id": "gratitude", "title": "Gratitude", "description": "Three things.", "icon": "Heart", "suggestedTime": "21:30" },
+    { "id": "body-scan", "title": "Body scan", "description": "5 minutes of progressive relaxation.", "icon": "Waves", "suggestedTime": "21:45" },
+    { "id": "tomorrow-intention", "title": "Tomorrow's intention", "description": "One thing for tomorrow.", "icon": "Sunrise", "suggestedTime": "21:50" },
+    { "id": "dim-lights", "title": "Dim lights", "description": "Reduce light exposure.", "icon": "Moon", "suggestedTime": "20:30" }
+  ]
+}
