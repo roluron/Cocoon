@@ -1,13 +1,15 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { useApp } from '../../context/AppContext.jsx';
+import { useTheme } from '../../context/ThemeContext.jsx';
 import { MOOD_VALENCE } from '../../utils/moodAlgorithm.js';
+import { today } from '../../utils/storage.js';
 
-const today = () => new Date().toISOString().slice(0, 10);
 const uid = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
 
 export default function FreeJournal() {
   const { state, dispatch } = useApp();
+  const { glow } = useTheme();
   const [open, setOpen] = useState(false);
   const [text, setText] = useState('');
   const [entryId, setEntryId] = useState(null);
@@ -55,19 +57,31 @@ export default function FreeJournal() {
     setEntryId(null);
   };
 
+  const dateStr = new Date().toLocaleDateString(undefined, {
+    weekday: 'long',
+    month: 'short',
+    day: 'numeric',
+  });
+
   return (
     <>
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="mx-5 mt-4 rounded-card border border-cocoon-mist/50 bg-cocoon-deep/60 px-5 py-5 text-left"
+        className="group mt-6 mx-6 flex items-center gap-3 py-3 text-left"
       >
-        <p className="font-mono text-[11px] uppercase tracking-widest text-cocoon-ash">
-          Free journal
-        </p>
-        <p className="mt-2 font-body text-sm text-cocoon-pearl">
-          Open a quiet page. Auto-saves as you write.
-        </p>
+        <span
+          className="relative flex h-2 w-2 items-center justify-center"
+          aria-hidden="true"
+        >
+          <span
+            className="h-[5px] w-[5px] rounded-full"
+            style={{ background: glow, opacity: 0.7 }}
+          />
+        </span>
+        <span className="font-display italic text-[16px] text-cocoon-pearl/80 group-hover:text-cocoon-light transition">
+          open a quiet page
+        </span>
       </button>
 
       <AnimatePresence>
@@ -79,28 +93,24 @@ export default function FreeJournal() {
             transition={{ duration: 0.4 }}
             className="absolute inset-0 z-30 flex flex-col bg-cocoon-void"
           >
-            <div className="flex items-center justify-between px-5 pt-5">
-              <span className="font-mono text-[11px] uppercase tracking-widest text-cocoon-ash">
-                {new Date().toLocaleDateString(undefined, {
-                  weekday: 'long',
-                  month: 'short',
-                  day: 'numeric',
-                })}
+            <div className="flex items-center justify-between px-6 pt-8">
+              <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-cocoon-ash">
+                {dateStr}
               </span>
               <button
                 type="button"
                 onClick={close}
-                className="font-body text-sm text-cocoon-pearl"
+                className="font-display italic text-[14px] text-cocoon-pearl/80 hover:text-cocoon-light transition"
               >
-                Done
+                done
               </button>
             </div>
             <textarea
               ref={taRef}
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="flex-1 resize-none bg-transparent px-6 py-6 font-display text-[18px] leading-relaxed text-cocoon-pearl placeholder:text-cocoon-ash/40 focus:outline-none"
-              placeholder="\u2026"
+              className="flex-1 resize-none bg-transparent px-6 py-8 font-display italic text-[20px] leading-[1.6] text-cocoon-light placeholder:text-cocoon-ash/40 focus:outline-none"
+              placeholder="…"
             />
           </motion.div>
         )}

@@ -1,10 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useReducer, useRef } from 'react';
-import { storage } from '../utils/storage.js';
+import { storage, today } from '../utils/storage.js';
 import { applyPhaseAdvance, evaluateNextPhase } from '../utils/phaseTransition.js';
 
 const STORAGE_KEY = 'state';
-
-const today = () => new Date().toISOString().slice(0, 10);
 const now = () => new Date().toISOString();
 
 const initialState = {

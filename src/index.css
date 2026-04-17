@@ -128,3 +128,46 @@ textarea {
     opacity: 0.85;
   }
 }
+
+@keyframes cocoon-sheet-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes cocoon-sheet-rise {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.sheet-fade {
+  animation: cocoon-sheet-fade 260ms ease-out both;
+}
+.sheet-rise {
+  animation: cocoon-sheet-rise 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.cocoon-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 1px;
+  background: rgba(200, 200, 212, 0.35);
+  outline: none;
+}
+
+.cocoon-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--cocoon-light);
+  cursor: pointer;
+  box-shadow: 0 0 8px color-mix(in oklab, var(--cocoon-glow) 60%, transparent);
+}
+
+.cocoon-range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--cocoon-light);
+  border: none;
+  cursor: pointer;
+}

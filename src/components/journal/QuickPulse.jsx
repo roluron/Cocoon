@@ -1,13 +1,14 @@
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useApp } from '../../context/AppContext.jsx';
+import { useTheme } from '../../context/ThemeContext.jsx';
 import { MOOD_VALENCE } from '../../utils/moodAlgorithm.js';
+import { today } from '../../utils/storage.js';
 
-const today = () => new Date().toISOString().slice(0, 10);
 const uid = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
 
 export default function QuickPulse() {
   const { state, dispatch } = useApp();
+  const { glow } = useTheme();
   const [word, setWord] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
@@ -35,23 +36,16 @@ export default function QuickPulse() {
 
   if (submitted) {
     return (
-      <motion.div
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 0.7 }}
-        className="mx-5 mt-4 rounded-card border border-cocoon-mist/50 bg-cocoon-deep/60 px-5 py-4"
-      >
-        <p className="font-body text-sm text-cocoon-ash">Noted.</p>
-      </motion.div>
+      <div className="mt-8 px-6">
+        <p className="font-display italic text-[15px] text-cocoon-ash/80">noted.</p>
+      </div>
     );
   }
 
   return (
-    <form
-      onSubmit={submit}
-      className="mx-5 mt-4 rounded-card border border-cocoon-mist/50 bg-cocoon-deep/60 px-5 py-5"
-    >
-      <p className="font-mono text-[11px] uppercase tracking-widest text-cocoon-ash">
-        One word for today
+    <form onSubmit={submit} className="mt-8 px-6">
+      <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-cocoon-ash">
+        one word for today
       </p>
       <input
         type="text"
@@ -59,8 +53,13 @@ export default function QuickPulse() {
         onChange={(e) => setWord(e.target.value)}
         autoFocus={false}
         maxLength={40}
-        className="mt-3 w-full text-center font-display text-3xl text-cocoon-light placeholder:text-cocoon-ash/50 focus:outline-none"
-        placeholder="\u2014"
+        className="mt-4 w-full border-b pb-3 font-display italic text-cocoon-light placeholder:text-cocoon-ash/40 focus:outline-none"
+        style={{
+          fontSize: 'clamp(28px, 8vw, 36px)',
+          borderColor: word.trim() ? glow : 'var(--cocoon-mist)',
+          transition: 'border-color 600ms',
+        }}
+        placeholder="—"
       />
     </form>
   );

@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { useMemo, useState } from 'react';
 import { useApp } from '../../context/AppContext.jsx';
 import { selectResurfacing } from '../../utils/resurfacingSelector.js';
@@ -13,7 +12,7 @@ export default function ResurfacingCard() {
 
   const entry = useMemo(
     () => selectResurfacing({ moods: state.moods, journal: state.journal }),
-    [state.moods, state.journal]
+    [state.moods, state.journal],
   );
 
   if (!entry || dismissed) return null;
@@ -36,45 +35,51 @@ export default function ResurfacingCard() {
   const dot = moodColor(entry.moodAtTime);
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.2 }}
-      className="mx-5 mt-4 rounded-card border px-5 py-5"
-      style={{
-        borderColor: 'var(--cocoon-mist)',
-        background:
-          'linear-gradient(180deg, color-mix(in oklab, var(--cocoon-deep) 92%, #2a2018 8%) 0%, var(--cocoon-deep) 100%)',
-      }}
-    >
-      <p className="font-mono text-[11px] uppercase tracking-widest text-cocoon-ash">
-        From a lighter day
+    <section className="mt-10 px-6">
+      <div
+        className="mb-5 h-px w-8"
+        style={{
+          background: `linear-gradient(to right, ${dot}, transparent)`,
+          opacity: 0.6,
+        }}
+        aria-hidden="true"
+      />
+      <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-cocoon-ash">
+        from a lighter day
       </p>
-      <p className="mt-4 font-display italic text-cocoon-light text-lg leading-relaxed">
-        &ldquo;{text}&rdquo;
-      </p>
-      <div className="mt-4 flex items-center gap-2">
+      <p
+        className="mt-4 font-display italic text-cocoon-light leading-[1.25]"
+        style={{ fontSize: 'clamp(20px, 5.5vw, 26px)' }}
+      >
         <span
-          className="inline-block h-2 w-2 rounded-full"
+          className="relative -top-1 mr-1 text-cocoon-pearl/40"
+          style={{ fontSize: '1.3em', lineHeight: 0 }}
+          aria-hidden="true"
+        >
+          "
+        </span>
+        {text}
+      </p>
+      <div className="mt-5 flex items-center gap-2">
+        <span
+          className="inline-block h-[6px] w-[6px] rounded-full"
           style={{ background: dot }}
           aria-hidden
         />
-        <span className="font-mono text-[10px] uppercase tracking-widest text-cocoon-ash">
+        <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-cocoon-ash/80">
           {dateLabel(entry.date)}
         </span>
       </div>
-      <p className="mt-4 font-body text-[13px] text-cocoon-ash">
-        You wrote this. You&rsquo;ve felt this before.
+      <p className="mt-4 font-display italic text-[14px] text-cocoon-pearl/70">
+        you wrote this. you've felt this before.
       </p>
-      <div className="mt-3 text-right">
-        <button
-          type="button"
-          onClick={onDismiss}
-          className="font-body text-[12px] text-cocoon-ash underline-offset-4 hover:underline"
-        >
-          Set aside
-        </button>
-      </div>
-    </motion.section>
+      <button
+        type="button"
+        onClick={onDismiss}
+        className="mt-3 font-mono text-[10px] uppercase tracking-[0.28em] text-cocoon-ash/70 hover:text-cocoon-pearl transition"
+      >
+        set aside
+      </button>
+    </section>
   );
 }

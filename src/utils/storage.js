@@ -1,5 +1,7 @@
 const PREFIX = 'cocoon:';
 
+export const today = () => new Date().toISOString().slice(0, 10);
+
 export const storage = {
   get(key, fallback = null) {
     try {

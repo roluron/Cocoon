@@ -1,23 +1,34 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import MoodOption from '../shared/MoodOption.jsx';
 import GlowButton from '../shared/GlowButton.jsx';
 import BreathingCircle from './BreathingCircle.jsx';
 import { MOODS, moodLabel } from '../../utils/moodAlgorithm.js';
 import { useApp } from '../../context/AppContext.jsx';
+import { dayInCycle } from '../../utils/promptArc.js';
 
 function uid() {
   return Math.random().toString(36).slice(2) + Date.now().toString(36);
 }
 
-const BREATHE_MS = 18000;
+/** Adaptive timing: shorter breathing space as user builds familiarity
+ *  Days 1-7:  3 breath cycles (~24s)
+ *  Days 8-14: 2 breath cycles (~16s)
+ *  Days 15+:  1 breath cycle  (~8s)  */
+function breathDuration(cycle) {
+  const day = dayInCycle(cycle);
+  if (day <= 7) return 24000;
+  if (day <= 14) return 16000;
+  return 8000;
+}
 
 export default function MoodCheckinFlow({ open, onClose, onWriteRequest }) {
-  const { dispatch } = useApp();
+  const { state, dispatch } = useApp();
   const [stage, setStage] = useState('select');
   const [mood, setMood] = useState(null);
   const [note, setNote] = useState('');
   const [showInvite, setShowInvite] = useState(false);
+  const breathMs = useMemo(() => breathDuration(state.cycle), [state.cycle]);
 
   useEffect(() => {
     if (!open) {
@@ -30,9 +41,9 @@ export default function MoodCheckinFlow({ open, onClose, onWriteRequest }) {
 
   useEffect(() => {
     if (stage !== 'breathe') return;
-    const t = setTimeout(() => setShowInvite(true), BREATHE_MS);
+    const t = setTimeout(() => setShowInvite(true), breathMs);
     return () => clearTimeout(t);
-  }, [stage]);
+  }, [stage, breathMs]);
 
   const commitMood = (m) => {
     setMood(m);
