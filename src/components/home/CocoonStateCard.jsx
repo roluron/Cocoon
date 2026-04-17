@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import AmbientOrb from '../shared/AmbientOrb.jsx';
+import RestingState from './RestingState.jsx';
 import { useApp } from '../../context/AppContext.jsx';
 import { useTheme } from '../../context/ThemeContext.jsx';
 import { moodLabel } from '../../utils/moodAlgorithm.js';
@@ -40,6 +41,48 @@ export default function CocoonStateCard({ onCheckin, softCheckin }) {
   const whisper = PHASE_WHISPERS[phase];
   const { time, period } = timeParts();
   const name = state.profile?.name;
+
+  // Resting state: cycle completed, butterfly showing
+  const isResting = state.cycle?.ecloseAcknowledged === true;
+
+  if (isResting) {
+    return (
+      <section
+        className="relative mt-4 overflow-hidden pb-6"
+        style={{ minHeight: '50vh' }}
+        aria-label="Resting"
+      >
+        <div className="absolute right-5 top-0 flex flex-col items-end gap-1 font-mono text-[10px] uppercase tracking-[0.2em] text-cocoon-ash/80">
+          <span>{time}</span>
+          <span className="text-cocoon-ash/60">{period}</span>
+        </div>
+        <div className="flex flex-col items-center pt-16">
+          {name && (
+            <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.28em] text-cocoon-ash">
+              {period}, {name.toLowerCase()}
+            </p>
+          )}
+          <RestingState onBeginNewCycle={() => {/* TODO: navigate to intention screen */}} />
+        </div>
+        <motion.button
+          type="button"
+          onClick={onCheckin}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.4, delay: 2 }}
+          className="group mx-auto mt-4 flex items-center gap-3 py-2"
+          aria-label="Check in"
+        >
+          <span className="relative flex h-2 w-2 items-center justify-center" aria-hidden="true">
+            <span className="relative h-[5px] w-[5px] rounded-full" style={{ background: glow, opacity: 0.6 }} />
+          </span>
+          <span className="font-display italic text-[13px] text-cocoon-pearl/60 group-hover:text-cocoon-light transition">
+            how are you now?
+          </span>
+        </motion.button>
+      </section>
+    );
+  }
 
   return (
     <section
