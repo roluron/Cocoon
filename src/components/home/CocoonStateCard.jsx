@@ -39,6 +39,7 @@ export default function CocoonStateCard({ onCheckin, softCheckin }) {
   const phaseLabel = PHASE_LABELS[phase];
   const whisper = PHASE_WHISPERS[phase];
   const { time, period } = timeParts();
+  const name = state.profile?.name;
 
   return (
     <section
@@ -69,7 +70,7 @@ export default function CocoonStateCard({ onCheckin, softCheckin }) {
           transition={{ duration: 1.6, delay: 0.1 }}
           className="font-mono text-[10px] uppercase tracking-[0.28em] text-cocoon-ash"
         >
-          the cocoon
+          {name ? `${period}, ${name.toLowerCase()}` : 'the cocoon'}
         </motion.p>
 
         <motion.h1

@@ -39,7 +39,7 @@ export default function HomeScreen({ onGoToJournal }) {
       {state.profile?.onboarding?.archetypeEnabled && <WeeklyTarotCard />}
 
       {/* Weekly summary trigger — sits above the wisdom fragment */}
-      <div className="px-6 mb-2">
+      <div className="mt-8 px-6 mb-2">
         <button
           type="button"
           onClick={() => setWeeklyOpen(true)}

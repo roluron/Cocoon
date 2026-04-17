@@ -17,7 +17,7 @@ export default function BottomNav({ active, onChange }) {
       className="relative shrink-0 px-2 pt-2"
       style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 12px)' }}
     >
-      <div className="flex items-stretch justify-around gap-1 rounded-modal border border-cocoon-mist/60 bg-cocoon-deep/80 px-2 py-2 backdrop-blur">
+      <div className="flex items-stretch justify-around gap-1 rounded-modal border border-cocoon-mist/40 bg-cocoon-deep/70 px-2 py-2 backdrop-blur-xl">
         {TABS.map(({ id, label, Icon }) => {
           const isActive = active === id;
           return (

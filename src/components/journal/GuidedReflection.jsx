@@ -60,7 +60,7 @@ export default function GuidedReflection({ autoFocus }) {
   if (done) return null;
 
   return (
-    <form onSubmit={submit} className="mt-10 px-6">
+    <form onSubmit={submit} className="mt-8 px-6">
       <div className="flex items-baseline justify-between">
         <span
           className="font-display italic text-cocoon-pearl/70 text-[15px]"
