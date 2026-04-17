@@ -4,6 +4,7 @@ import { useTheme } from '../../context/ThemeContext.jsx';
 import { selectPrompt, dayInCycle } from '../../utils/promptArc.js';
 import { MOOD_VALENCE } from '../../utils/moodAlgorithm.js';
 import { today } from '../../utils/storage.js';
+import { getProfileFromState } from '../../utils/archetypeWeaver.js';
 
 const uid = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
 const MAX = 500;
@@ -23,6 +24,8 @@ export default function GuidedReflection({ autoFocus }) {
     return todays.length / state.rituals.length;
   }, [state.rituals, state.ritualCompletions]);
 
+  const archetypeProfile = useMemo(() => getProfileFromState(state), [state.profile]);
+
   const prompt = useMemo(
     () =>
       selectPrompt({
@@ -31,8 +34,9 @@ export default function GuidedReflection({ autoFocus }) {
         journal: state.journal,
         ritualCompletionRate: completionRate,
         day,
+        archetypeProfile,
       }),
-    [state.cycle, state.moods, state.journal, completionRate, day],
+    [state.cycle, state.moods, state.journal, completionRate, day, archetypeProfile],
   );
 
   const submit = (e) => {

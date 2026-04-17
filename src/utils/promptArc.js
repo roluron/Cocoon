@@ -1,5 +1,6 @@
 import promptArc from '../data/promptArc.json';
 import { consecutiveSameMood, MOOD_VALENCE } from './moodAlgorithm.js';
+import { weaveArchetype } from './archetypeWeaver.js';
 
 export function dayInCycle(cycle, now = new Date()) {
   if (!cycle?.startDate) return 1;
@@ -24,7 +25,7 @@ function pick(list, seed) {
   return list[seed % list.length];
 }
 
-export function selectPrompt({ cycle, moods, journal, ritualCompletionRate, day }) {
+export function selectPrompt({ cycle, moods, journal, ritualCompletionRate, day, archetypeProfile }) {
   const phaseName = phaseForDay(day);
   const phaseDef = promptArc.phases[phaseName];
   const overrides = promptArc.patternOverrides;
@@ -81,5 +82,22 @@ export function selectPrompt({ cycle, moods, journal, ritualCompletionRate, day 
 
   const seed = day + journal.length;
   const text = pick(phaseDef.prompts, seed).replace('{days}', String(day));
+
+  // Attempt archetypal weaving — subtle, probabilistic, never forced
+  if (archetypeProfile) {
+    const currentMood = moods[moods.length - 1]?.mood ?? null;
+    const woven = weaveArchetype({
+      basePrompt: text,
+      promptPhase: phaseName,
+      profile: archetypeProfile,
+      day,
+      journalLength: journal.length,
+      currentMood,
+    });
+    if (woven) {
+      return { prompt: woven, promptPhase: phaseName, reason: 'archetype-woven' };
+    }
+  }
+
   return { prompt: text, promptPhase: phaseName, reason: 'arc' };
 }
